@@ -1,3 +1,5 @@
 module.exports = {
-        url : 'mongodb://localhost/patapp_db'
+        db_conn : 'mongodb://localhost/patapp_db',
+        user : 'patapp_user',
+        pswd : 'pat@app'
     }
