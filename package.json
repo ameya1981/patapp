@@ -22,9 +22,13 @@
   },
   "homepage": "https://github.com/ameya1981/patapp#readme",
   "dependencies": {
-    "body-parser": "1.15.2",
+    "body-parser": "^1.15.2",
     "express": "~4.14.0",
     "mongoose": "~4.7.7",
-    "mongoose-auto-increment": "^5.0.1"
+    "mongoose-auto-increment": "^5.0.1",
+    "multer": "^1.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
