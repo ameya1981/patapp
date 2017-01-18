@@ -86,13 +86,16 @@ pat_router.get('/patients/:firstname', function(req, res){
     
   console.log("modify patients-------------");
   console.log(req);
-    Patient.find({'firstname':req.params.firstname}, function (err, pats) {
+    Patient.findOne({'firstname':req.params.firstname}, function (err, pats) {
       if (err) { res.send(err); }
 
       if (req.body.firstname) pats.firstname = req.body.firstname;
       if (req.body.lastname) pats.lastname = req.body.lastname;
       if (req.body.email) pats.email = req.body.email;
-
+      console.log(typeof pats);
+      console.log("pats object");
+      console.log(req.body.email);
+      console.log(pats);
       pats.save(function(err) {
         if (err) { res.send(err); }
         res.json({status: 200, message: 'Patient cr info updated'});
