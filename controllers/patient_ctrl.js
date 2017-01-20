@@ -83,16 +83,35 @@ exports.delete = function(req, res, next){
 };
 
 const fs = require('fs');
+
+var get_img_path = function (firstname) {
+  return uploads_path + path.sep + firstname + '_profile_pic';
+}
+
 exports.del_profile_pic = function(req, res) {
-  var file_path = uploads_path + path.sep + req.params.firstname + '_profile_pic';
-  fs.unlink(file_path , function(err) {
-              if (err) {res.send(err);}
+
+  var file_path = get_img_path(req.params.firstname);
+
+  // add as endpoint/method to check if profile image exists
+  fs.access(file_path, fs.constants.F_OK && fs.constants.X_OK, function (err) {
+     //if (err) {res.status(404).send("The image you are trying to access does not exist.");}
+     if (err) {console.log("The image you are trying to access does not exist.");}
+     fs.unlink(file_path , function(err) {
+              if (err) {res.send("Something went wrong. Could not delete your profile pic");}
             }
            );
+  });
 }
 
 //get. profile pic of patient
 exports.getprofile = function(req, res){
-  res.setHeader("Content-Type", "image/png");
-  res.sendFile( uploads_path + path.sep + req.params.firstname + '_profile_pic');
-};
+
+  var file_path = get_img_path(req.params.firstname);
+  fs.access(file_path, fs.constants.F_OK && fs.constants.X_OK, function (err) {
+    if (err) {res.send("The image you are trying to access does not exist.");}
+    else {
+      res.setHeader("Content-Type", "image/png");
+      res.sendFile( file_path);
+    }
+  });
+}
