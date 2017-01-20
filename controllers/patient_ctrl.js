@@ -24,10 +24,10 @@ exports.search = function(req, res){
 
   console.log("firstname patients-------------");
   console.log(req.params);
-  var searchby = "'" + req.params.type + "'";
+  /*var searchby = "'" + req.params.type + "'";
   var searchfor = req.params.value;
-  var search = {searchby: searchfor};
-    Patient.find({'firstname':searchfor}, function (err, pats) {
+  var search = {searchby: searchfor};*/
+    Patient.find({'firstname': req.params.firstname}, function (err, pats) {
       if (err) { res.send(err); }
       res.json(pats);
     });
