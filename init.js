@@ -42,9 +42,8 @@ module.exports = function() {
  // app.use(logger('dev'));
 
   app.use(function(req, res, next) {  
-    var err = new Error('Endpoint Not Found');
-    err.status = 404;
-    next(err);
+    res.status(404).send('The page you are trying to access, does not exist.');
+    //next(err);
   });
 
   app.all('/api/*', function (req, res, next) {
