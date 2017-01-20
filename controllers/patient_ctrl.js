@@ -1,4 +1,6 @@
 var Patient = require('../models/patient');
+const uploads_path = '/opt/bitnami/apps/patapp/uploads';
+var path = require('path');
 
 //abstract further
 //var crud = require('./crud_ctrl')('patient');
@@ -21,8 +23,11 @@ exports.getall = function(req, res){
 exports.search = function(req, res){
 
   console.log("firstname patients-------------");
-  console.log(req);
-    Patient.find({'firstname':req.body.firstname}, function (err, pats) {
+  console.log(req.params);
+  var searchby = "'" + req.params.type + "'";
+  var searchfor = req.params.value;
+  var search = {searchby: searchfor};
+    Patient.find({'firstname':searchfor}, function (err, pats) {
       if (err) { res.send(err); }
       res.json(pats);
     });
@@ -41,7 +46,6 @@ exports.create = function(req, res){
     patient.profile_image_path = "";
 
     patient.save(function(err) {
-
       if (err) { res.send(err); }
       res.json({status: 200, message: 'Patient created'});
     });
@@ -66,19 +70,29 @@ exports.update = function(req, res){
 };
 
 //delete. delete a patient record
-exports.delete = function(req, res){
+exports.delete = function(req, res, next){
     
   console.log("delete patients-------------");
-  console.log(req);
-    Patient.remove({'firtname':req.body.firstname}, function(err) {
+  console.log(req.params);
+    Patient.remove({'firstname':req.params.firstname}, function(err) {
 
       if (err) { res.send(err); }
       res.json({status: 200, message: 'Patient deleted'});
     });
+   //next();
 };
 
+const fs = require('fs');
+exports.del_profile_pic = function(req, res) {
+  var file_path = uploads_path + path.sep + req.params.firstname + '_profile_pic';
+  fs.unlink(file_path , function(err) {
+              if (err) {res.send(err);}
+            }
+           );
+}
 
 //get. profile pic of patient
 exports.getprofile = function(req, res){
-  res.sendFile(__dirname + path.sep + 'uploads' + path.sep + req.params.firstname + '_profile_pic');
+  res.setHeader("Content-Type", "image/png");
+  res.sendFile( uploads_path + path.sep + req.params.firstname + '_profile_pic');
 };

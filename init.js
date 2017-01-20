@@ -23,8 +23,8 @@ module.exports = function() {
 
   var app = express();
 
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+  //app.use(bodyParser.urlencoded({ extended: true }));
+  //app.use(bodyParser.json());
 
   app.locals.db_conn = patapp_db_config.db_conn;
   app.locals.db_user = patapp_db_config.db_user;
@@ -42,7 +42,7 @@ module.exports = function() {
  // app.use(logger('dev'));
 
   app.use(function(req, res, next) {  
-    var err = new Error('Not Found');
+    var err = new Error('Endpoint Not Found');
     err.status = 404;
     next(err);
   });

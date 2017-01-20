@@ -1,6 +1,7 @@
 
 var express = require('express');
 var multer = require('multer');
+var path = require('path');
 
 //for image storage
 var storage = multer.diskStorage({
@@ -31,7 +32,9 @@ pat_router.get('', function(req, res){
 pat_router.get('/patients', patientctrl.getall);
 
 //get. search by first name
-pat_router.get('/patients/:firstname', function(req, res){
+//pat_router.get('/^patients+:(firstname|lastname|email)\/:(.+)/', patientctrl.search);
+pat_router.get('/patients/:type(firstname|lastname|email)/:value/', patientctrl.search);
+/*pat_router.get('/patients/:firstname', function(req, res){
 
   console.log("firstname patients-------------");
   console.log(req);
@@ -40,10 +43,11 @@ pat_router.get('/patients/:firstname', function(req, res){
       res.json(pats);
     });
   });
-
+*/
 
 //post. create a new patient
-pat_router.post('/patients', upload,  function(req, res){
+pat_router.post('/patients', upload, patientctrl.create);
+/*pat_router.post('/patients', upload,  function(req, res){
     
   console.log("add patients-------------");
   console.log(req);
@@ -59,9 +63,11 @@ pat_router.post('/patients', upload,  function(req, res){
       res.json({status: 200, message: 'Patient created'});
     });
   });
+*/
 
 //put. update a patient
- pat_router.put('/patients/:firstname', function(req, res){
+pat_router.put('/patients/:firstname', patientctrl.update)
+/* pat_router.put('/patients/:firstname', function(req, res){
     
   console.log("modify patients-------------");
   console.log(req);
@@ -77,9 +83,11 @@ pat_router.post('/patients', upload,  function(req, res){
       });
   });
  });
+*/
 
 //delete. delete a patient record
-pat_router.delete('/patients/:firstname', function(req, res){
+pat_router.delete('/patients/:firstname', patientctrl.delete, patientctrl.del_profile_pic)
+/*pat_router.delete('/patients/:firstname', function(req, res){
     
   console.log("delete patients-------------");
   console.log(req);
@@ -89,7 +97,18 @@ pat_router.delete('/patients/:firstname', function(req, res){
       res.json({status: 200, message: 'Patient deleted'});
     });
   });
- console.log("at the wits' end ")
+*/
+
+pat_router.get('/profile/:firstname',patientctrl.getprofile);
+
+/* function(req, res){
+  res.setHeader("Content-Type", "image/png");
+  //res.sendFileyyp(".." + path.sep + 'uploads' + path.sep + req.params.firstname + '_profile_pic');
+  res.sendFile( "/opt/bitnami/apps/patapp" + path.sep + 'uploads' + path.sep + req.params.firstname + '_profile_pic');
+
+}); */
+
+
 
 module.exports = pat_router; 
 
