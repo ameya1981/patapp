@@ -21,9 +21,15 @@
     "url": "https://github.com/ameya1981/patapp/issues"
   },
   "homepage": "https://github.com/ameya1981/patapp#readme",
-  "dependencies" :{
-    "express" : "~4.14.0",
-    "body-parser" : "1.15.2",
-    "mongoose" : "~4.7.7"
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "~4.14.0",
+    "mongoose": "~4.7.7",
+    "mongoose-auto-increment": "^5.0.1",
+    "multer": "^1.2.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
