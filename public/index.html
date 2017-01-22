@@ -48,62 +48,63 @@
 <div class="col-md-6">
 <div id="patgrid" 
      ui-grid="gridOptions" ui-grid-cellNav="true"
-     ui-grid-exporter="true"
      ui-grid-selection="true"
      ui-grid-expandable="true"
-     ui-grid-grouping="true"
      ui-grid-auto-resize="true"
      ui-grid-move-columns="true"
      ui-grid-resize-columns="true"
      class="grid">
 </div>
-<br>
-<div id="search">
-  <input type="text" ng-model="searchfirstname" name="input" required="required">
-  <md-button class="md-primary" ng-click="getPatient()"> Search by First Name </md-button>
-</div>
-
-</div>
-
-<!--
-<div id="pat-list" class="row">
-    <div class="col-sm-4 col-sm-offset-4">
-
-	<div class="checkbox" ng-repeat="patient in patients | filter:searchfirstname">
-	    <label>
-		<input type="checkbox" ng-click="deletePat(patient._id)"> {{ patient.firstname }}
-	    </label>
-	</div>
-
+  <div class="row">
+    <div class="col-md-3">
+      <input type="text" ng-model="searchfirstname" name="input" required="required" placeholder="Search by First Name">
     </div>
-</div>    
--->
+    <div class="col-md-3">
+      <button class="btn btn-default" type="button" ng-click="getPatient()"> Search </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-default" type="button" ng-click="getAll()"> Reset Table </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-default" type="button" ng-click="deletePat()"> Delete Selected </button>
+    </div>
+  </div>
 
+</div><!-- col-md-6 ends-->
 
 
 <div class="col-md-6">
-<div id="patient-form">
   <form ng-submit="createPat()" id="editform">
-    <label for="firstname">First Name</label>
-    <input type="text" ng-model="firstname" name="firstname" required="required">
-    <label for="lastname">Last Name</label>
-    <input type="text" ng-model="lastname" name="lastname" required="required">
-    <label for="email">Email</label>
-    <input type="email" ng-model="email" name="email" required="required">
-    <label for="profile_pic">Profile Picture</label>
-    <input type="file" file-model="profile_pic" name="file" accept="image/*" resize-max-height="300" resize-max-width="300" resize-quality="0.7" >
-     <button  type="submit">Submit</button>
-
+    <div class="form-group">
+	    <label for="firstname">First Name</label>
+	    <input type="text" ng-model="firstname" name="firstname" required="required" class="form-control">
+    
+    </div>
+    <div class="form-group">
+	    <label for="lastname">Last Name</label>
+	    <input type="text" ng-model="lastname" name="lastname" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+	    <label for="email">Email</label>
+	    <input type="email" ng-model="email" name="email" required="required" class="form-control">
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-6">
+	    <label for="profile_pic">Profile Picture</label>
+	    <input type="file" file-model="profile_pic" name="file" accept="image/*" resize-max-height="300" resize-max-width="300" resize-quality="0.7">
+            <p class="help-block">Select a patient record from the left panel to edit or enter a new one.</p>
+	     <button class="btn btn-default" type="submit">Submit</button>
+      </div>
+      <div class="col-md-6 offset-md-6">
+        <img ng-show="img_src" ng-src={{img_src}}>
+    </div>
   </form>
-</div>
 </div> 
 </div> <!-- class=row ends -->
-</div> 
-<!--<div id=refresh">
-  <md-button class="md-primary" ng-click="getAll()"> Reset Data Table </md-button>
-</div>-->
-    
-	
+</div>
+
+<div id="avatar" style="{'background-image' : 'url( {{img_src}} )'}">should have an image</div>
+
 </body>
 </html>
 

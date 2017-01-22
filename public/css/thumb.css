@@ -9,3 +9,32 @@
 width: 500px;
 height: 250px;
 }
+
+.ui-grid-cell.ui-grid-disable-selection.ui-grid-row-header-cell {
+    pointer-events: auto;
+}
+
+img {
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    height: 100px;
+    width: 100px;
+}
+
+#avatar {
+    
+    /* make a square container */
+    width: 100px;
+    height: 100px;
+
+    /* fill the container, preserving aspect ratio, and cropping to fit */
+    background-size: cover;
+
+    /* center the image vertically and horizontally */
+    background-position: center;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+}	

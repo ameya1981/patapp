@@ -23,6 +23,9 @@ return {
     },
     update : function(firstname) {
 	return $http.put('/api/patients/' + firstname);
+    },
+    getprofile : function(firstname) {
+        return $http.get('/api/profile/' + firstname); 
     }
 }
 });
