@@ -1,0 +1,11 @@
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+.grid {
+width: 500px;
+height: 250px;
+}

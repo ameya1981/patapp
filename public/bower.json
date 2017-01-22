@@ -1,0 +1,31 @@
+{
+  "name": "Patapp",
+  "homepage": "https://github.com/ameya1981/patapp",
+  "authors": [
+    "Ameya Chaubal <ameya.chaubal@gmail.com>"
+  ],
+  "description": "Patient profile app demo",
+  "main": "js/app.js",
+  "keywords": [
+    "demo"
+  ],
+  "license": "GPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.9",
+    "angular-route": "~1.4.9",
+    "jquery-ui": "~1.11.4",
+    "angular-ui-grid": "~3.0.0",
+    "string": "3.3.1",
+    "toastr": "~2.1.1",
+    "bootstrap": "^3.3.7",
+    "ng-file-upload": "^12.2.13"
+  }
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="patientapp">
+<head>
+    <title>Patapp</title>
+    <meta charset="utf-8" />
+    <base href="/">
+    <!-- bower:css -->
+    <link rel="stylesheet" href="./bower_components/angular-ui-grid/ui-grid.css" />
+    <link rel="stylesheet" href="./bower_components/toastr/toastr.css" />
+    <!-- endbower -->
+
+    <!-- inject:css -->
+    <!--<link rel="stylesheet" href="../tmp/styles.css">-->
+    <!-- endinject -->
+
+    <!-- bower:js -->
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/angular-route/angular-route.js"></script>
+    <script src="./bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="./bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script src="./bower_components/string/dist/string.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="./bower_components/toastr/toastr.js"></script>
+    <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <!-- endbower -->
+
+    <!-- inject:js -->
+    <script src="js/controllers/main.js"></script>
+    <script src="js/services/pats.js"></script>
+    <script src="js/app.js"></script>
+    <!-- endinject -->
+
+    <link href="./css/thumb.css" rel="stylesheet" />
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+</head>
+
+<body ng-controller="MainController as appVm">
+
+<div class="jumbotron text-center">
+  <h1>Patient Profiles</h1>
+  <p>Simple Demo</p> 
+</div>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<div id="patgrid" 
+     ui-grid="gridOptions" ui-grid-cellNav="true"
+     ui-grid-exporter="true"
+     ui-grid-selection="true"
+     ui-grid-expandable="true"
+     ui-grid-grouping="true"
+     ui-grid-auto-resize="true"
+     ui-grid-move-columns="true"
+     ui-grid-resize-columns="true"
+     class="grid">
+</div>
+<br>
+<div id="search">
+  <input type="text" ng-model="searchfirstname" name="input" required="required">
+  <md-button class="md-primary" ng-click="getPatient()"> Search by First Name </md-button>
+</div>
+
+</div>
+
+<!--
+<div id="pat-list" class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+
+	<div class="checkbox" ng-repeat="patient in patients | filter:searchfirstname">
+	    <label>
+		<input type="checkbox" ng-click="deletePat(patient._id)"> {{ patient.firstname }}
+	    </label>
+	</div>
+
+    </div>
+</div>    
+-->
+
+
+
+<div class="col-md-6">
+<div id="patient-form">
+  <form ng-submit="createPat()" id="editform">
+    <label for="firstname">First Name</label>
+    <input type="text" ng-model="firstname" name="firstname" required="required">
+    <label for="lastname">Last Name</label>
+    <input type="text" ng-model="lastname" name="lastname" required="required">
+    <label for="email">Email</label>
+    <input type="email" ng-model="email" name="email" required="required">
+    <label for="profile_pic">Profile Picture</label>
+    <input type="file" file-model="profile_pic" name="file" accept="image/*" resize-max-height="300" resize-max-width="300" resize-quality="0.7" >
+     <button  type="submit">Submit</button>
+
+  </form>
+</div>
+</div> 
+</div> <!-- class=row ends -->
+</div> 
+<!--<div id=refresh">
+  <md-button class="md-primary" ng-click="getAll()"> Reset Data Table </md-button>
+</div>-->
+    
+	
+</body>
+</html>
+
+
