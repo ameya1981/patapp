@@ -1,3 +1,8 @@
+/*
+The only controller in this app.
+Manages all the calls from the and binds to different data-types
+*/
+
 angular.module('PatientController', [])
 
     .controller('MainController', function($scope, $http, patients) {
@@ -126,4 +131,4 @@ angular.module('PatientController', [])
             });
            }
        };
-   }]);
+   }]);//directive required as ng-model not supported for type=file

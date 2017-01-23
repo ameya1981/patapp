@@ -6,8 +6,9 @@ var express = require('express'),
 module.exports = function(app_config) {
 
   var app = express();
-  //app.use(bodyParser.urlencoded({extended: true}));
-  //app.use(bodyParser.json());
+
+  //override POST with PUT if X-HTTP... is set in headers
+  // used when patient update called
   app.use(methodOverride('X-HTTP-Method-Override'))
 
 

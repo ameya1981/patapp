@@ -5,6 +5,7 @@ var path = require('path');
 var app_config = require('../config/app');
 
 //for image storage
+// read from form-data
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, app_config.uploads_dir_name);
@@ -23,16 +24,15 @@ var pat_router = express.Router();
 
 //hello home
 pat_router.get('', function(req, res){
-
   console.log("home-------------");
   res.json({message : 'Hello there'});
-
 });
 
 //get the list of all patients
 pat_router.get('/patients', patientctrl.getall);
 
 //get. search by first name
+//regex:try more
 //pat_router.get('/patients/:type(firstname|lastname|email)/:value/', patientctrl.search);
 pat_router.get('/patients/:firstname', patientctrl.search);
 

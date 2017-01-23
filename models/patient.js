@@ -1,3 +1,10 @@
+/*
+represent the patient data
+
+*/
+
+
+
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
@@ -8,10 +15,11 @@ var db_options = {
   pass: db.pswd
 }
 // connect to db
- mongoose.connect(db.db_conn, db_options);
+mongoose.connect(db.db_conn, db_options);
 
 var connection = mongoose.createConnection(db.db_conn, db_options);
 
+//actually auto-increment not required
 autoIncrement.initialize(connection);
 
 var PatientSchema   = new Schema({

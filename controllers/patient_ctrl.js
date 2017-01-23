@@ -1,3 +1,4 @@
+//requirements
 var Patient = require('../models/patient');
 var path = require('path');
 var app_config = require('../config/app');
@@ -7,18 +8,23 @@ const uploads_path = app_config.uploads_dir
 //var crud = require('./crud_ctrl')('patient');
 //module.exports = crud;
 
+/*
+Define methods to fetch data using the Patient model.
 
+
+*/
 //get the list of all patients
 exports.getall = function(req, res){
 
-  console.log("all patients--------yyy-----");
+  //console.log("all patients--------yyy-----");
     Patient.find(function (err, pats) {
       if (err) { res.send(err); }
-      console.log(pats);
       res.json(pats);
     });
 };
 
+// given a firstname, check if patient exists.
+// called before create
 exports.check_if_exists = function(req, res, next) {
     Patient.find({'firstname': req.body.firstname}, function (err, pats) {
       if (err) { return err; }
@@ -35,8 +41,6 @@ exports.check_if_exists = function(req, res, next) {
 //get. search by first name
 exports.search = function(req, res){
 
-  console.log("firstname patients-------------");
-  console.log(req.params);
     Patient.find({'firstname': req.params.firstname}, function (err, pats) {
       if (err) { res.send(err); }
       if (pats.length == 0){
@@ -48,10 +52,10 @@ exports.search = function(req, res){
 
 
 //post. create a new patient
+// the image upload will be taken by multer
 exports.create = function(req, res){
     
-  console.log("add patients-------------");
-  console.log(req);
+  //console.log("add patients-------------");
     var patient = new Patient();
     patient.firstname = req.body.firstname;
     patient.lastname = req.body.lastname;
@@ -65,9 +69,10 @@ exports.create = function(req, res){
 };
 
 //put. update a patient
+// the image upload will be taken by multer
 exports.update = function(req, res){
     
-  console.log("modify patients-------------");
+  //findOneandUpate?
     Patient.findOne({'firstname':req.params.firstname}, function (err, pats) {
       if (err) { res.send(err); }
 
@@ -93,6 +98,7 @@ exports.delete = function(req, res, next){
     });
 };
 
+// delete the profile pic when a patient gets deleted
 const fs = require('fs');
 exports.del_profile_pic = function(req, res) {
   var file_path = uploads_path + path.sep + req.params.firstname + '_profile_pic';
