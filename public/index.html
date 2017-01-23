@@ -55,6 +55,7 @@
      ui-grid-resize-columns="true"
      class="grid">
 </div>
+    <br>
   <div class="row">
     <div class="col-md-3">
       <input type="text" ng-model="searchfirstname" name="input" required="required" placeholder="Search by First Name">
@@ -91,7 +92,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-6">
 	    <label for="profile_pic">Profile Picture</label>
-	    <input type="file" file-model="profile_pic" name="file" accept="image/*" resize-max-height="300" resize-max-width="300" resize-quality="0.7">
+	    <input type="file" file-model="profile_pic" name="file" accept="image/*" resize-max-height="100" resize-max-width="100" resize-quality="0.7">
             <p class="help-block">Select a patient record from the left panel to edit or enter a new one.</p>
 	     <button class="btn btn-default" type="submit">Submit</button>
       </div>
@@ -103,7 +104,7 @@
 </div> <!-- class=row ends -->
 </div>
 
-<div id="avatar" style="{'background-image' : 'url( {{img_src}} )'}">should have an image</div>
+<!-- <div id="avatar" style="{'background-image' : 'url( {{img_src}} )'}">should have an image</div> -->
 
 </body>
 </html>

@@ -17,22 +17,21 @@ angular.module('PatientController', [])
 	      $scope.gridApi = gridApi;
 	      gridApi.selection.on.rowSelectionChanged($scope,function(row){
 		var msg = 'row selected ' + row.isSelected;
-                $scope.firstname = row.entity.firstname;
-                $scope.lastname = row.entity.lastname;
-                $scope.email = row.entity.email;
-                $scope.img_src = "/profiles/" + $scope.firstname + "_profile_pic";
-                //$scope.img_src = patients.getprofile($scope.firstname);//"https://farm9.staticflickr.com/8455/8048926748_1bc624e5c9_d.jpg";
-		console.log(row);
+                if (row.isSelected) {
+			$scope.firstname = row.entity.firstname;
+			$scope.lastname = row.entity.lastname;
+			$scope.email = row.entity.email;
+			$scope.img_src = "/profiles/" + $scope.firstname + "_profile_pic";
+			console.log(row);
+                }
 	      });
 
-	      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+	      /*gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
 		var msg = 'rows changed ' + rows.length;
 		console.log(msg);
-	      });
+	      });*/
 	    }; 
           
-        console.log($scope.gridOptions);
-        
 
         //$http.get('/api/patients')
         $scope.getAll = function(){

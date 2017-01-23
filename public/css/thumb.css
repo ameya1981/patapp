@@ -6,8 +6,8 @@
     top: 7px;
 }
 .grid {
-width: 500px;
-height: 250px;
+width: auto;
+height: auto;
 }
 
 .ui-grid-cell.ui-grid-disable-selection.ui-grid-row-header-cell {

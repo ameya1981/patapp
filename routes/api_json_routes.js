@@ -39,7 +39,7 @@ pat_router.get('/patients/:firstname', patientctrl.search);
 pat_router.post('/patients', upload, patientctrl.create);
 
 //put. update a patient
-pat_router.put('/patients/:firstname', patientctrl.update)
+pat_router.put('/patients/:firstname', upload,  patientctrl.update)
 
 //delete. delete a patient record
 pat_router.delete('/patients/:firstname', patientctrl.delete, patientctrl.del_profile_pic)

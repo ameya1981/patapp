@@ -79,7 +79,7 @@ exports.delete = function(req, res, next){
       if (err) { res.send(err); }
       res.json({status: 200, message: 'Patient deleted'});
     });
-   //next();
+   next();
 };
 
 const fs = require('fs');
