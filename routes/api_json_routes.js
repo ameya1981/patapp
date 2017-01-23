@@ -2,11 +2,12 @@
 var express = require('express');
 var multer = require('multer');
 var path = require('path');
+var app_config = require('../config/app');
 
 //for image storage
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads');
+    cb(null, app_config.uploads_dir_name);
   },
   filename: function (req, file, cb) {
     cb(null, req.body.firstname + '_'+ file.fieldname )
@@ -36,7 +37,7 @@ pat_router.get('/patients', patientctrl.getall);
 pat_router.get('/patients/:firstname', patientctrl.search);
 
 //post. create a new patient
-pat_router.post('/patients', upload, patientctrl.create);
+pat_router.post('/patients', upload, patientctrl.check_if_exists, patientctrl.create);
 
 //put. update a patient
 pat_router.put('/patients/:firstname', upload,  patientctrl.update)

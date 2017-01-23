@@ -2,6 +2,9 @@ angular.module('PatientController', [])
 
     .controller('MainController', function($scope, $http, patients) {
 
+        this.formtoreset = "";
+        $scope.submitMethod = "POST";
+        $scope.rowSelected = "false";
         $scope.gridOptions = {
           enableFullRowSelection: true,
           multiSelect: false,
@@ -16,14 +19,17 @@ angular.module('PatientController', [])
 	//set gridApi on scope
 	      $scope.gridApi = gridApi;
 	      gridApi.selection.on.rowSelectionChanged($scope,function(row){
-		var msg = 'row selected ' + row.isSelected;
+		$scope.rowSelected = !row.isSelected;
                 if (row.isSelected) {
 			$scope.firstname = row.entity.firstname;
 			$scope.lastname = row.entity.lastname;
 			$scope.email = row.entity.email;
 			$scope.img_src = "/profiles/" + $scope.firstname + "_profile_pic";
+                        $scope.submitMethod = 'PUT';
 			console.log(row);
-                }
+                }else {
+                   reset_fields($scope.editform);
+                                        }
 	      });
 
 	      /*gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
@@ -32,47 +38,60 @@ angular.module('PatientController', [])
 	      });*/
 	    }; 
           
+        var reset_fields = function() {
+
+             $scope.submitMethod = 'POST';
+             //howto form.reset
+	     $scope.firstname = "";
+	     $scope.lastname = "";
+	     $scope.email = "";
+	     $scope.img_src = "";
+        }
 
         //$http.get('/api/patients')
         $scope.getAll = function(){
         patients.getall()
                 .success(function(data) {
-                    console.log("main ctrl");
-                        $scope.gridOptions.data = data;
+                    $scope.gridOptions.data = data;
                     toastr.info('Showing all patients');
                 })
                 .error(function(data) {
-                        console.log('Error: ' + data);
-                });
+                    toastr.error('Could not fetch patient data');
+                    console.log('Error: ' + data);
+                })
+		.finally(function(data) {
+                   reset_fields($scope.editform);
+		});
          }
 
          $scope.getPatient = function(firstname) {
            patients.get($scope.searchfirstname)
              .success(function(data) {
                 $scope.gridOptions.data = data;
-                    toastr.info('Patient Found');
+                toastr.success('Patient Found');
              })
              .error(function(data) {
-               
+                toastr.error(data); 
              });
          };
 
         $scope.createPat = function() {
 
                var infile = $scope.profile_pic;
-               var others = [{'name': 'firstname', 'data' : $scope.firstname},
+               var firstname = $scope.firstname;
+               var others = [{'name': 'firstname', 'data' : firstname},
                             {'name': 'lastname', 'data' : $scope.lastname},
                             {'name': 'email', 'data' : $scope.email}];
-                     patients.create(infile, others )
+               var submitMethod = $scope.submitMethod;
+                     patients.create(infile, others, submitMethod, firstname )
                         .success(function(data) {
-                               toastr.info('Patient Created');
+                               toastr.info('Patient Data Submitted');
                         })
                         .error(function(data) {
-                                console.log('Error: ' + data);
+                             toastr.error('Error: ' + data);
                         })
                         .finally(function(data) {
-                           console.log("getAll create pat");
-                               $scope.getAll();
+                           $scope.getAll();
                         });
         };
 

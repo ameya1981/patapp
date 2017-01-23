@@ -3,7 +3,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     path = require('path');
 
-module.exports = function() {
+module.exports = function(app_config) {
 
   var app = express();
   //app.use(bodyParser.urlencoded({extended: true}));
@@ -23,7 +23,7 @@ module.exports = function() {
 
   app.use('/', express.static(path.join(__dirname, 'public')));
   app.use('/bower_components', express.static(path.join(__dirname, 'public/bower_components')));
-  app.use('/profiles', express.static(path.join(__dirname, 'uploads')));
+  app.use('/profiles', express.static(path.join(__dirname, app_config.uploads_dir_name)));
 
   app.use(function(req, res, next) { 
     res.status(404).send('The page you are trying to access, does not exist.');

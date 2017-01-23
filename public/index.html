@@ -58,7 +58,7 @@
     <br>
   <div class="row">
     <div class="col-md-3">
-      <input type="text" ng-model="searchfirstname" name="input" required="required" placeholder="Search by First Name">
+      <input type="text" ng-model="searchfirstname" name="input" ng-required="required" placeholder="Search by First Name">
     </div>
     <div class="col-md-3">
       <button class="btn btn-default" type="button" ng-click="getPatient()"> Search </button>
@@ -67,7 +67,7 @@
       <button class="btn btn-default" type="button" ng-click="getAll()"> Reset Table </button>
     </div>
     <div class="col-md-3">
-      <button class="btn btn-default" type="button" ng-click="deletePat()"> Delete Selected </button>
+      <button class="btn btn-default" type="button" ng-click="deletePat()" ng-disabled="rowSelected" > Delete Selected </button>
     </div>
   </div>
 
@@ -75,10 +75,11 @@
 
 
 <div class="col-md-6">
-  <form ng-submit="createPat()" id="editform">
+  <form ng-submit="createPat()" >
     <div class="form-group">
+            <p class="help-block">Select a patient record from the left panel to edit or enter a new one.</p>
 	    <label for="firstname">First Name</label>
-	    <input type="text" ng-model="firstname" name="firstname" required="required" class="form-control">
+	    <input type="text" ng-model="firstname" name="firstname" required="required" class="form-control" ng-disabled="submitMethod !== 'POST'">
     
     </div>
     <div class="form-group">
@@ -91,9 +92,8 @@
     </div>
     <div class="row">
       <div class="col-md-6 offset-md-6">
-	    <label for="profile_pic">Profile Picture</label>
+	    <label for="profile_pic">Select Profile Picture</label>
 	    <input type="file" file-model="profile_pic" name="file" accept="image/*" resize-max-height="100" resize-max-width="100" resize-quality="0.7">
-            <p class="help-block">Select a patient record from the left panel to edit or enter a new one.</p>
 	     <button class="btn btn-default" type="submit">Submit</button>
       </div>
       <div class="col-md-6 offset-md-6">
