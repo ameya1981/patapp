@@ -1,6 +1,7 @@
 var Patient = require('../models/patient');
-const uploads_path = '/opt/bitnami/apps/patapp/uploads';
 var path = require('path');
+var app_config = require('../config/app');
+const uploads_path = app_config.uploads_dir
 
 //abstract further
 //var crud = require('./crud_ctrl')('patient');
@@ -12,24 +13,36 @@ exports.getall = function(req, res){
 
   console.log("all patients--------yyy-----");
     Patient.find(function (err, pats) {
-      console.log("got results" + err);
       if (err) { res.send(err); }
       console.log(pats);
       res.json(pats);
     });
 };
 
+exports.check_if_exists = function(req, res, next) {
+    Patient.find({'firstname': req.body.firstname}, function (err, pats) {
+      if (err) { return err; }
+       
+      if (pats.length == 0){
+        next();
+      }
+      else{
+        res.status(409).send('Patient Exists with the name : ' + req.body.firstname);
+      }
+    });
+}
+
 //get. search by first name
 exports.search = function(req, res){
 
   console.log("firstname patients-------------");
   console.log(req.params);
-  /*var searchby = "'" + req.params.type + "'";
-  var searchfor = req.params.value;
-  var search = {searchby: searchfor};*/
     Patient.find({'firstname': req.params.firstname}, function (err, pats) {
       if (err) { res.send(err); }
-      res.json(pats);
+      if (pats.length == 0){
+        res.status(404).send('No Patient Found with the name : ' + req.params.firstname);
+      }
+      else{res.json(pats);}
     });
 };
 
@@ -55,7 +68,6 @@ exports.create = function(req, res){
 exports.update = function(req, res){
     
   console.log("modify patients-------------");
-  console.log(req);
     Patient.findOne({'firstname':req.params.firstname}, function (err, pats) {
       if (err) { res.send(err); }
 
@@ -64,7 +76,7 @@ exports.update = function(req, res){
       if (req.body.email) pats.email = req.body.email;
       pats.save(function(err) {
         if (err) { res.send(err); }
-        res.json({status: 200, message: 'Patient cr info updated'});
+        res.json({status: 200, message: 'Patient info updated'});
       });
   });
 };
@@ -79,7 +91,6 @@ exports.delete = function(req, res, next){
       if (err) { res.send(err); }
       res.json({status: 200, message: 'Patient deleted'});
     });
-   //next();
 };
 
 const fs = require('fs');
